@@ -15,7 +15,18 @@ var commentRoutes    = require("./routes/comments"),
     eventRoutes = require("./routes/events"),
     indexRoutes      = require("./routes/index")
     
-mongoose.connect('mongodb://localhost:27017/LocalAthlete');
+mongoose.connect('mongodb+srv://LocalAthlete:123@cluster0-lmg6t.mongodb.net/test?retryWrites=true&w=majority', {
+	useNewUrlParser: true, 
+	useCreateIndex: true, 
+	useUnifiedTopology:true
+}).then(() => {
+	console.log("connected to DB");
+
+}).catch(err => {
+	console.log("error:", err.message);
+});
+
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -43,6 +54,7 @@ app.use("/", indexRoutes);
 app.use("/events", eventRoutes);
 app.use("/events/:id/comments", commentRoutes);
 
-app.listen(3000, function(){
-   console.log("The LocalAthlete Server Has Started!");
+var port = process.env.PORT || 3000;
+app.listen(port, function () {
+  console.log("Server Has Started!");
 });
