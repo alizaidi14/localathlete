@@ -1,0 +1,43 @@
+<%- include ("../partials/header") %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="thumbnail">
+                <img class="img-responsive" src="<%= event.image %>">
+                <div class="caption-full">
+					<h4 class="pull-right">| <%= event.address %> ||</h4>
+                    <h4 class="pull-right">|| <%= event.time %> | </h4>
+                    <h4><a><%=event.name%></a></h4>
+                    <p><%= event.description %></p>
+					<p><em>Submitted By </em><%= event.author.username %></p>
+					<% if(currentUser && event.author.id.equals(currentUser._id)){ %>
+						<a class="btn btn-warning" href="/events/<%= event._id %>/edit">Edit</a>
+						<form id="delete-form" action="/events/<%= event._id %>?_method=DELETE" method="POST">
+							<button class="btn btn-danger">Delete</button>
+						</form>
+					<% } %>
+                </div>
+            </div>
+            <div class="well">
+                <div class="text-right">
+                    <a class="btn btn-success" href="/events/<%= event._id %>/comments/new">Add New Comment</a>
+                </div>
+                <hr>
+                <% event.comments.forEach(function(comment){ %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong><%= comment.author.username %></strong>
+                            <p>
+                                <%= comment.text %> 
+                            </p>
+                           
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include ("../partials/footer") %>

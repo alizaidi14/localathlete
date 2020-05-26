@@ -1,0 +1,32 @@
+<%- include ("../partials/header") %>
+
+<div class="container">
+     <header class="jumbotron text-center">
+         <div class="container">
+             <h1>LocalAthlete</h1>
+             <p>Find a local sporting event near you!</p>
+             <p>
+                <a class="btn btn-primary btn-large" href="/events/new">Post an Event!</a>
+             </p>
+         </div>
+     </header>
+     
+     <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+        <% events.forEach(function(event){ %>
+            <div class="col-md-3 col-sm-6">
+                <div class="thumbnail">
+                   <img src="<%= event.image %>">
+                   <div class="caption">
+                       <h4><%= event.name %></h4>
+                   </div>
+                   <p>
+                       <a href="/events/<%= event._id %>" class="btn btn-primary">More Info</a>
+                   </p>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+</div>
+
+<%- include ("../partials/footer") %>
+
